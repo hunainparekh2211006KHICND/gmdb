@@ -1,5 +1,7 @@
 package com.galvanize.gmdb.gmdb.model;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +20,7 @@ public class Movie {
     private Integer year_released;
     private String genre;
     private Integer run_time;
+
+    @OneToMany(mappedBy="movie",targetEntity=Review.class,cascade = CascadeType.ALL)
+    private List<Review> reviews;
 }
