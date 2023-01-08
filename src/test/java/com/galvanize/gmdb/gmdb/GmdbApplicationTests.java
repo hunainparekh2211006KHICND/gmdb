@@ -21,11 +21,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.galvanize.gmdb.gmdb.controller.MovieController;
+import com.galvanize.gmdb.gmdb.controller.ReviewController;
 import com.galvanize.gmdb.gmdb.controller.ReviewerController;
 import com.galvanize.gmdb.gmdb.model.Movie;
 import com.galvanize.gmdb.gmdb.model.Review;
 import com.galvanize.gmdb.gmdb.model.Reviewer;
 import com.galvanize.gmdb.gmdb.repository.IMovieRepository;
+import com.galvanize.gmdb.gmdb.repository.IReviewRepository;
 import com.galvanize.gmdb.gmdb.repository.IReviewerRepository;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -39,16 +41,21 @@ public class GmdbApplicationTests {
 
     private MockMvc mvc;
     private MockMvc mvc2;
+    private MockMvc mvc3;
 
 	@Mock
 	private IMovieRepository movieRepo;
     @Mock
     private IReviewerRepository reviewerRepo;
+    @Mock
+    private IReviewRepository reviewRepo;
 
 	@InjectMocks
 	private MovieController movieController;
     @InjectMocks
     private ReviewerController reviewerController;
+    @InjectMocks
+    private ReviewController reviewController;
 
 	private JacksonTester<Movie> jsonMovie;
 	private JacksonTester<List<Movie>> jsonMovies;
@@ -60,6 +67,7 @@ public class GmdbApplicationTests {
 		JacksonTester.initFields(this, new ObjectMapper());
 		mvc = MockMvcBuilders.standaloneSetup(movieController).build();
         mvc2 = MockMvcBuilders.standaloneSetup(reviewerController).build();
+        mvc3 = MockMvcBuilders.standaloneSetup(reviewController).build();
 	}
 
 	// Stories for this project are shown below in order of value, with the highest value listed first.
