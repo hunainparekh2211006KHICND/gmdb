@@ -37,4 +37,14 @@ public class Review {
     @JoinColumn(name="reviewer_id",referencedColumnName="id",nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Reviewer reviewer;
+
+    public Review(){};
+
+    public Review(Long id,String review_text,Date last_modified_date,Movie movie,Reviewer reviewer){
+        this.id = id;
+        this.review_text = review_text;
+        this.last_modified_date = last_modified_date;
+        this.movie = movie;
+        this.reviewer = reviewer;
+    }
 }

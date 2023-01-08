@@ -23,4 +23,21 @@ public class Movie {
 
     @OneToMany(mappedBy="movie",targetEntity=Review.class,cascade = CascadeType.ALL)
     private List<Review> reviews;
+
+    public Movie(){};
+
+    public Movie(Long id,String title,Integer year_released,String genre,Integer run_time){
+        this.id = id;
+        this.title = title;
+        this.year_released = year_released;
+        this.genre = genre;
+        this.run_time = run_time;
+    }
+
+    public Movie(String title,Integer year_released,String genre,Integer run_time){
+        this.title = title;
+        this.year_released = year_released;
+        this.genre = genre;
+        this.run_time = run_time;
+    }
 }
