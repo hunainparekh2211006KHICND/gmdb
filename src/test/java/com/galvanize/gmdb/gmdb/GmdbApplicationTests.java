@@ -148,10 +148,10 @@ public class GmdbApplicationTests {
     //
     @Test
 	public void canCreateANewReview() throws Exception {
-        Reviewer reviewer = new Reviewer("Hunain Parekh");
-        reviewerRepo.save(reviewer);
         Movie movie = new Movie(1L,"Harry Porter",1992,"Action",120);
-        movieRepo.save(movie);
+        Reviewer reviewer = new Reviewer(1L,"Hunain Parekh",Date.valueOf(LocalDate.now()),5L);
+        when(movieRepo.findById(1L)).thenReturn(Optional.of(movie));
+        when(reviewerRepo.findById(1L)).thenReturn(Optional.of(reviewer));
         Review review = new Review("Awesome Movie");
         ReviewFeilds myReview = new ReviewFeilds(1l,1l,review);
 		mvc3.perform(post("/reviews")
@@ -165,6 +165,14 @@ public class GmdbApplicationTests {
     //
     @Test
 	public void canDeleteReview() throws Exception {
+        Movie movie = new Movie(1L,"Harry Porter",1992,"Action",120);
+        Reviewer reviewer = new Reviewer(1L,"Hunain Parekh",Date.valueOf(LocalDate.now()),5L);
+        Review review = new Review(1L,"Awesome Movie",Date.valueOf(LocalDate.now()),movie,reviewer);
+        Review review2 = new Review(2L,"Good Movie",Date.valueOf(LocalDate.now()),movie,reviewer);
+        List<Review> reviews = new LinkedList<Review>();
+        reviews.add(review);
+        reviews.add(review2);
+        when(reviewRepo.findByReviewerId(1L)).thenReturn(reviews);
 		mvc3.perform(delete("/reviews/1/1"))
 			.andExpect(status().isOk());
 	}
@@ -174,10 +182,10 @@ public class GmdbApplicationTests {
     //
     @Test
 	public void canUpdateReview() throws Exception {
-        Reviewer reviewer = new Reviewer("Hunain Parekh");
-        reviewerRepo.save(reviewer);
         Movie movie = new Movie(1L,"Harry Porter",1992,"Action",120);
-        movieRepo.save(movie);
+        Reviewer reviewer = new Reviewer(1L,"Hunain Parekh",Date.valueOf(LocalDate.now()),5L);
+        when(movieRepo.findById(1L)).thenReturn(Optional.of(movie));
+        when(reviewerRepo.findById(1L)).thenReturn(Optional.of(reviewer));
         Review review = new Review("Awesome Movie");
         reviewRepo.save(review);
         Review updatReview = new Review(1l,"Good Movie");
