@@ -47,4 +47,13 @@ public class Review {
         this.movie = movie;
         this.reviewer = reviewer;
     }
+
+    public Review(String review_text){
+        this.review_text = review_text;
+    }
+
+    public Review(Long id,String review_text){
+        this.review_text = review_text;
+        this.id = id;
+    }
 }
